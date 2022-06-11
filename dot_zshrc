@@ -1,0 +1,42 @@
+export LC_ALL=en_US.UTF-8
+setopt histexpiredupsfirst
+setopt histfindnodups
+setopt histignorealldups
+setopt histignorespace
+setopt histsavenodups
+setopt histverify
+setopt sharehistory
+setopt HIST_BEEP
+setopt inc_append_history
+setopt interactivecomments
+# setopt prompt_subst
+export CLICOLOR=1
+export LSCOLORS=GxfxbxdxCxegedabagacad
+alias grep='grep --color=auto'
+
+HISTSIZE=999999
+HISTFILESIZE=999999
+SAVEHIST=$HISTSIZE
+
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' formats "[%b] "
+precmd() {
+    precmd() {
+        echo
+        psvar=()
+
+        vcs_info
+        [[ -n $vcs_info_msg_0_ ]] && print -v 'psvar[1]' -Pr -- "$vcs_info_msg_0_"
+    }
+}
+
+PROMPT='%F{9}%1v%F{green}%# %F{231}%B'
+preexec () { print -Pn "%b%f" }
+alias labmachine='ssh paul1155@enochroot.cs.umn.edu'
+alias cselab='ssh paul1155@csel-kh4250-36.cselabs.umn.edu'
+alias all='brew update && brew upgrade && brew upgrade --cask && brew upgrade --greedy && brew cleanup'
+alias hist='history 1'
+alias localip='ipconfig getifaddr en0'
+alias publicip='curl ifconfig.me'
+alias cputemp='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'

@@ -1,0 +1,15 @@
+filetype on
+filetype plugin indent on
+syntax on
+set tabstop=4
+set softtabstop=4
+set nobackup
+set ignorecase
+set t_Co=256
+colorscheme ron
+set scrolloff=5
+set showmode
+set showcmd
+set matchpairs+=<:>
+set laststatus=2
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v]
