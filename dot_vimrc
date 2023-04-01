@@ -1,0 +1,24 @@
+filetype on
+filetype plugin indent on
+syntax on
+set nocompatible
+set noswapfile
+set tabstop=4
+set softtabstop=4
+set nobackup
+set ignorecase
+set t_Co=256
+colorscheme ron
+set scrolloff=5
+set showmode
+set number
+set showcmd
+set cursorline
+set matchpairs+=<:>
+set laststatus=2
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v]
+set autoindent
+set smartindent
+set shiftwidth=4
+set wildmenu
+
