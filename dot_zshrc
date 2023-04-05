@@ -36,6 +36,7 @@ preexec () { print -Pn "%b%f" }
 
 #add to path here
 
+#PATH=$PATH:~/.local/bin
 #PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 #PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
@@ -45,11 +46,10 @@ preexec () { print -Pn "%b%f" }
 #aliases here
 
 #alias grep='grep --color=auto'
-alias all='brew update && brew upgrade && brew upgrade --cask && brew upgrade --greedy && brew cleanup'
+alias all='brew update && brew upgrade && brew upgrade --cask && brew upgrade --greedy && brew autoremove && brew cleanup'
 alias hist='history 1'
 alias localip='ipconfig getifaddr en0'
 alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias cputemp='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
 alias ll='exa -lbh --color=auto --group-directories-first'
 alias Path="echo $PATH | tr ':' '\n'"
-

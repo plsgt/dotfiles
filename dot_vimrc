@@ -22,3 +22,6 @@ set smartindent
 set shiftwidth=4
 set wildmenu
 
+" fzf config
+
+set rtp+=/usr/local/opt/fzf
