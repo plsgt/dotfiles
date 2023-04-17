@@ -74,10 +74,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  clangd_extensions = {
+  catppuccin = {
     loaded = true,
-    path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/clangd_extensions",
-    url = "https://github.com/ p00f/clangd_extensions"
+    path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/catppuccin",
+    url = "https://github.com/catppuccin/nvim"
   },
   ["cmp-buffer"] = {
     loaded = true,
@@ -129,6 +129,16 @@ _G.packer_plugins = {
     path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["mini.nvim"] = {
+    loaded = true,
+    path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/mini.nvim",
+    url = "https://github.com/echasnovski/mini.nvim"
+  },
+  ["nvim-base16"] = {
+    loaded = true,
+    path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/nvim-base16",
+    url = "https://github.com/RRethy/nvim-base16"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -154,6 +164,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/Users/saugata/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["vim-vsnip"] = {
     loaded = true,

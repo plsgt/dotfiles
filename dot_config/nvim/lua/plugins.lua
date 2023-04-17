@@ -33,4 +33,19 @@ return require('packer').startup(function(use)
 		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 	}
 	
+	--theme from folke
+	use 'folke/tokyonight.nvim'
+
+	--base16 themes from rrethy
+	use 'RRethy/nvim-base16'
+	
+	--256 colorscheme theme
+	--use {'Iron-E/nvim-highlite', branch = 'master-v3'}
+	
+	--mini.nvim themes and other Configurations
+	use 'echasnovski/mini.nvim'
+	
+	--catpuccin themes
+	use { "catppuccin/nvim", as = "catppuccin" }
+
 end)
