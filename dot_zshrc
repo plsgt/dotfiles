@@ -6,7 +6,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
-setopt INC_APPEND_HISTORY
+#setopt INC_APPEND_HISTORY
 setopt PROMPT_SUBST
 setopt autocd
 export CLICOLOR=1
@@ -23,7 +23,8 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats "[%b] "
 #the code inside the if statement is for zsh-completion package
 if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+#    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
 autoload -Uz compinit && compinit
@@ -38,41 +39,54 @@ precmd() {
 }
 
 # PROMPT='%F{9}%1v%F{133}%1~  %F{231}%B'
+# PROMPT='%F{9}%1v%F{cyan}%1~%f %F{133}'$'$ %F{231}%B'
 PROMPT='%F{9}%1v%F{cyan}%1~%f %F{133}'$'\ue711 %F{231}%B'
+# RPROMPT="[%D{%L:%M:%S} | %D{%f/%m/%y}]"
 
 preexec () { print -Pn "%b%f" }
 
 #add to path here
 
 PATH=$PATH:~/.local/bin		#for pipx package installations 
-#PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-#PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
-#PATH="$PATH:/Users/saugata/Desktop/Projects/flutter/bin"
-#PATH="$PATH:/Users/saugata/.gem/ruby/2.6.0/bin"
+# PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+# PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+# PATH="$PATH:/Users/saugata/Desktop/Projects/flutter/bin"
+# PATH="$PATH:/Users/saugata/.gem/ruby/2.6.0/bin"
 
-#the following two lines are for ruby gem software installations
+# the following two lines are for ruby gem software installations
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$PATH:$GEM_HOME/bin"
 
 
 
-#aliases here
+# aliases here
 
-#alias grep='grep --color=auto'
+# alias grep='grep --color=auto'
 alias all='brew update && brew upgrade && brew upgrade --cask && brew upgrade --greedy && brew autoremove && brew cleanup'
 alias hist='history 1'
 alias localip='ipconfig getifaddr en0'
-alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias publicip='curl ifconfig.me'
 alias cputemp='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
-#alias ll='exa -lbh --color=auto --group-directories-first'
+# alias ll='exa -lbh --icons --group-directories-first'
 alias Path="echo $PATH | tr ':' '\n'"
-alias vi='nvim'
-alias ls='colorls --sd'			#for the colorls brew package
-alias cat='bat --paging=never'	#bat is cat with wings, better cat
+# alias vi='nvim'
+# alias ls='colorls --sd'			# for the colorls brew package
+alias cat='bat --paging=never'	# bat is cat with wings, better cat
+alias gcc='/usr/local/bin/gcc-13'    # to get the actual gcc from brew installation path
+alias g++='/usr/local/bin/g++-13'    # to get the actual g++ from brew installation path
+# alias ls='exa --icons --group-directories-first'
+alias ls='eza --icons --group-directories-first'
+alias c++='clang++ -std=c++20 -Wall -Wextra'
+alias py3='python3'
 
-#code for zsh-syntax-highlighting brew package
+
+# code for zsh-syntax-highlighting brew package
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#code for zsh-autosuggestions brew package
+# code for zsh-autosuggestions brew package
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# for iterm2 shell integration
+test -e /Users/saugata/.iterm2_shell_integration.zsh && source /Users/saugata/.iterm2_shell_integration.zsh || true
+
 

@@ -16,12 +16,13 @@ set showcmd
 set cursorline
 set matchpairs+=<:>
 set laststatus=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v]
+set statusline=%t%{&modified?'(*)':''}\ %r%h%w
+set statusline+=%=
+set statusline+=\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ %p%%
 set autoindent
 set smartindent
 set shiftwidth=4
 set wildmenu
 
 " fzf config
-
 set rtp+=/usr/local/opt/fzf
