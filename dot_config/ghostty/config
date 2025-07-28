@@ -1,0 +1,11 @@
+background-opacity 			= 0.8
+background-blur-radius 		= 20
+theme 						= Apple System Colors
+# font-family 				= FiraCode Nerd Font Mono
+font-family 				= Cascadia Code NF
+# font-family 				= CodeNewRoman Nerd Font Mono
+shell-integration 			= zsh
+shell-integration-features 	= sudo, title
+font-size 					= 14
+# font-thicken				= true
+# macos-icon					= glass
