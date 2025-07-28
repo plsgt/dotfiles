@@ -1,2 +1,3 @@
+.config/nvim/init.lua
 .vimrc
 .zshrc
