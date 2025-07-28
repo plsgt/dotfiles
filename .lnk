@@ -1,4 +1,5 @@
 .config/ghostty/config
 .config/nvim/init.lua
+.gitconfig
 .vimrc
 .zshrc
