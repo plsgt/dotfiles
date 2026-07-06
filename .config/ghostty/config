@@ -8,4 +8,5 @@ shell-integration 			= zsh
 shell-integration-features 	= sudo, title
 font-size 					= 14
 # font-thicken				= true
-# macos-icon					= glass
+macos-icon					= glass
+bell-features				= no-attention, no-title

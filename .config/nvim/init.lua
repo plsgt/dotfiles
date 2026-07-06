@@ -1,23 +1,3 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.guicursor = "n-v-c-i:ver25"
@@ -33,34 +13,53 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = false
 vim.opt.cursorline = true
 
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    -- add your plugins here
-    'folke/tokyonight.nvim',
-    'kyazdani42/nvim-web-devicons',
-    'nvim-lualine/lualine.nvim',
-	'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-	'neovim/nvim-lspconfig',
-	'hrsh7th/cmp-nvim-lsp',
-	'hrsh7th/cmp-buffer',
-	'hrsh7th/cmp-path',
-	'hrsh7th/cmp-cmdline',
-	'hrsh7th/nvim-cmp',
-	'folke/noice.nvim',
-	'SmiteshP/nvim-navic',
-	'utilyre/barbecue.nvim',
-	'rebelot/kanagawa.nvim'
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  -- install = { colorscheme = { "tokyonight" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+vim.pack.add({
+  'https://github.com/nvim-mini/mini.nvim',
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/nvim-treesitter/nvim-treesitter',
+  'https://github.com/folke/tokyonight.nvim',
+  'https://github.com/kyazdani42/nvim-web-devicons',
+  'https://github.com/nvim-lualine/lualine.nvim',
+  'https://github.com/williamboman/mason.nvim',
+  'https://github.com/williamboman/mason-lspconfig.nvim',
+  'https://github.com/hrsh7th/cmp-nvim-lsp',
+  'https://github.com/hrsh7th/cmp-buffer',
+  'https://github.com/hrsh7th/cmp-path',
+  'https://github.com/hrsh7th/cmp-cmdline',
+  'https://github.com/hrsh7th/nvim-cmp',
+  'https://github.com/MunifTanjim/nui.nvim',
+  'https://github.com/rcarriga/nvim-notify',
+--  'https://github.com/folke/noice.nvim',
+  'https://github.com/SmiteshP/nvim-navic',
+  'https://github.com/utilyre/barbecue.nvim',
+  'https://github.com/rebelot/kanagawa.nvim'
 })
 
 vim.opt.termguicolors = true
+
+require('vim._core.ui2').enable({
+  enable = true, -- Whether to enable or disable the UI.
+  msg = { -- Options related to the message module.
+    ---@type 'cmd'|'msg' Default message target, either in the
+    ---cmdline or in a separate ephemeral message window.
+    ---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
+    ---or table mapping |ui-messages| kinds and triggers to a target.
+    targets = 'cmd',
+    cmd = { -- Options related to messages in the cmdline window.
+      height = 0.5 -- Maximum height while expanded for messages beyond 'cmdheight'.
+    },
+    dialog = { -- Options related to dialog window.
+      height = 0.5, -- Maximum height.
+    },
+    msg = { -- Options related to msg window.
+      height = 0.5, -- Maximum height.
+      timeout = 4000, -- Time a message is visible in the message window.
+    },
+    pager = { -- Options related to message window.
+      height = 1, -- Maximum height.
+    },
+  },
+})
 
 require("tokyonight").setup {
     transparent = true,
@@ -119,24 +118,24 @@ require('lualine').setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("noice").setup({
-  lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-    },
-  },
-  -- you can enable a preset for easier configuration
-  presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
-  },
-})
+-- require("noice").setup({
+--   lsp = {
+--     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+--     override = {
+--       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+--       ["vim.lsp.util.stylize_markdown"] = true,
+--       ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+--     },
+--   },
+--   -- you can enable a preset for easier configuration
+--   presets = {
+--     bottom_search = true, -- use a classic bottom cmdline for search
+--     command_palette = true, -- position the cmdline and popupmenu together
+--     long_message_to_split = true, -- long messages will be sent to a split
+--     inc_rename = false, -- enables an input dialog for inc-rename.nvim
+--     lsp_doc_border = false, -- add a border to hover docs and signature help
+--   },
+-- })
 
 require("barbecue").setup({
   version = "*",
@@ -148,4 +147,3 @@ require("barbecue").setup({
     -- configurations go here
   },
 })
-

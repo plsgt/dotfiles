@@ -49,9 +49,17 @@ PROMPT='%F{9}%1v%F{cyan}%1~%f %F{133}'$'\ue711 %F{231}%B'
 
 preexec () { print -Pn "%b%f" }
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
 #add to path here
 
-PATH=$PATH:~/.local/bin		#for pipx package installations 
+PATH=$PATH:~/.local/bin		#for pipx package installations
 # PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 # PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
@@ -59,14 +67,12 @@ PATH=$PATH:~/.local/bin		#for pipx package installations
 # PATH="$PATH:/Users/saugata/.gem/ruby/2.6.0/bin"
 
 # the following two lines are for ruby gem software installations
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-export PATH="$PATH:$GEM_HOME/bin"
-
-
+# export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+# export PATH="$PATH:$GEM_HOME/bin"
 
 # aliases here
 
-alias all='brew update && brew upgrade && brew upgrade --cask && brew upgrade --greedy && brew autoremove && brew cleanup -v -s --prune=all'
+alias all='brew update && brew upgrade -y && brew upgrade --cask -y && brew upgrade --greedy && brew autoremove && brew cleanup -v -s --prune=all'
 alias hist='history 1'
 alias localip='ipconfig getifaddr en0'
 alias publicip='curl ifconfig.me && echo'
@@ -74,29 +80,26 @@ alias cputemp='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
 alias Path="echo $PATH | tr ':' '\n'"
 alias vi='nvim'
 alias cat='bat --paging=never'	# bat is cat with wings, better cat
-alias gcc='/usr/local/bin/gcc-14'    # to get the actual gcc from brew installation path
-alias g++='/usr/local/bin/g++-14'    # to get the actual g++ from brew installation path
+alias gcc='/usr/local/bin/gcc-16'    # to get the actual gcc from brew installation path
+alias g++='/usr/local/bin/g++-16'    # to get the actual g++ from brew installation path
 alias ls='eza --icons --group-directories-first'
-alias c++='clang++ -std=c++20 -Wall -Wextra'
-alias py3='python3'
+# alias c++='clang++ -std=c++26 -O2 -Wall -Wextra -Wdouble-promotion -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough -Werror=format-security'
+alias c++='clang++ -std=c++26'
+# alias py3='python3.14'
 alias find='fd'
 alias grep='rg'
 alias cd='z'
 # alias ping='gping'
 
-# code for zsh-syntax-highlighting brew package
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# code for zsh-history-substring-search brew package
-# source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-# code for zsh-autosuggestions brew package
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# sources here
 
-# for iterm2 shell integration
-test -e /Users/saugata/.iterm2_shell_integration.zsh && source /Users/saugata/.iterm2_shell_integration.zsh || true
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh    		# zsh-syntax-highlighting brew package
+# source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh   # zsh-history-substring-search brew package
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh 				# zsh-autosuggestions brew package
+source <(fzf --zsh)				# fzf key bindings and fuzzy completion
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
 FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
+FZF_CTRL_R_OPTS="--preview ''"
 FZF_DEFAULT_COMMAND="fd --type f"
 
 eval "$(zoxide init zsh)"
